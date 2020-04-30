@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css_bootstrap/bootstrap.css" >
+    <link rel="stylesheet" href="css_bootstrap/bootstrap-grid.css" >
+
+    <script src="js/indexBack.js" type="module"></script>
+    <script src="js/indexFront.js" type="module"></script>
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-3">
+                            data inicio
+                        </div>
+                        <div class="col-3">
+                            data final
+                        </div>
+                    </div>
+                    <div class="row">
+            
+                        <div class="col-3">
+                            <form>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="date" class="form-control" id="comecoCalend">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-3">
+                            <form>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="date" class="form-control" id="fimCalend">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            feriados
+                        </div>
+                        <div class="col-3">
+                            ferias
+                        </div>
+                        <div class="col-3">
+                            eventos
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <textarea id="feriados" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="col-3">
+                            <textarea id="ferias" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="col-3">
+                            <textarea id="eventos" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <button class="btn btn-primary" id="btnEnviar">enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="calendario"> 
+            
+        </div>
+    </div>
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js_bootstrap/jquery-3.5.0.js"></script>
+    <script src="js_bootstrap/popper.js"></script>
+    <script src="js_bootstrap/bootstrap.js"></script>
+  </body>
+</html>
