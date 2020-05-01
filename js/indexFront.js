@@ -1,7 +1,7 @@
 import * as calend from "./indexBack.js";
 
 window.onload = function(){
-    var divCalendFull = document.getElementById("calendario");
+    var divCalendRow = document.getElementById("calendario");
 
     var comecoCalend = document.getElementById("comecoCalend");
     var fimCalend = document.getElementById("fimCalend");
@@ -18,7 +18,7 @@ window.onload = function(){
         //exclui o calendario se ele ja exixstir
         let calendarioFull = document.getElementById('calendarioFull');
         if (calendarioFull){
-            divCalendFull.removeChild(calendarioFull);
+            divCalendRow.removeChild(calendarioFull);
         }
         
         let dataComeca = comecoCalend.value.split('-');
@@ -36,7 +36,7 @@ window.onload = function(){
         let ferias = feriasTxta.value;
         let eventos = eventosTxta.value;
 
-        divCalendFull.appendChild(criaCalendario(calendPeriodo, feriados, ferias, eventos));
+        divCalendRow.appendChild(criaCalendario(calendPeriodo, feriados, ferias, eventos));
     }
 }
 
@@ -45,13 +45,13 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
                      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
     var diasSemana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
 
-    let divCalend = document.createElement('div');
-    divCalend.className = "col";
-    divCalend.id = "calendarioFull"
+    let divCalendCol = document.createElement('div');
+    divCalendCol.className = "col";
+    divCalendCol.id = "calendarioFull"
 
     let calendario = document.createElement('div');
     calendario.className = "container-fluid";
-    divCalend.appendChild(calendario);
+    divCalendCol.appendChild(calendario);
     
 
     var ano = calendPeriodo.anoComeca;
@@ -71,7 +71,13 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
         divMes.className = "col-auto";
 
         let divInfos = document.createElement('div');
-        divInfos.className = "col-auto";
+        divInfos.className = "col-3";
+        divInfos.style.paddingTop = "10px";
+        // divInfos.style.border = "1px solid";
+
+        let cabecalhoEventos = document.createElement("h6");
+        cabecalhoEventos.innerText = "Eventos - ano " + ano;
+        divInfos.appendChild(cabecalhoEventos);
 
         divPrin.appendChild(divMes);
         divPrin.appendChild(divInfos);
@@ -184,7 +190,7 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
             mes++;
         }
     }
-    return calendario;
+    return divCalendCol;
 }
 
 
