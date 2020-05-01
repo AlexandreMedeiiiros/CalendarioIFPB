@@ -83,13 +83,8 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
         divMes.appendChild(mesCalend);
 
         let mesEventosLista = document.createElement('ul');
-        mesEventosLista.className = "list-group"
         divInfos.appendChild(mesEventosLista);
 
-        let cabecalhoListaEventos = document.createElement("li");
-        cabecalhoListaEventos.className = "list-group-item disable";
-        cabecalhoListaEventos.textContent = "Eventos";
-        mesEventosLista.appendChild(cabecalhoListaEventos);
 
 
         let capNomeMes = document.createElement('caption');
@@ -196,7 +191,6 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
 
 function eventosLista(data, nome) {
     let diaEspecialLi = document.createElement('li');
-    diaEspecialLi.className = "list-group-item"
     
     diaEspecialLi.textContent = data + " " + nome;;
 
