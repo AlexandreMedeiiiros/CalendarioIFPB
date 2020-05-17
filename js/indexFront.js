@@ -60,6 +60,8 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
     var mes_f = ano == ano_f ? calendPeriodo.mesTermina - 1: 11;
 
     let qntFerias;
+    let diasDeAula = 0;
+    let contagemBimestre = 50;  
     while(ano <= ano_f && mes <= mes_f){
         let mesMatriz = calend.criaMes({ano: ano, mes: mes});
 
@@ -70,14 +72,24 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
         let divMes = document.createElement('div');
         divMes.className = "col-auto";
 
+
+        //--- div de informação do mes --------------->
+
         let divInfos = document.createElement('div');
         divInfos.className = "col-3";
         divInfos.style.paddingTop = "10px";
-        // divInfos.style.border = "1px solid";
 
         let cabecalhoEventos = document.createElement("h6");
         cabecalhoEventos.innerText = "Eventos - ano " + ano;
         divInfos.appendChild(cabecalhoEventos);
+
+        let mesEventosLista = document.createElement('ul');
+        mesEventosLista.style.fontSize = "12px";
+        divInfos.appendChild(mesEventosLista);
+
+        let contagemDiasLetivos = document.createElement("h6");
+        divInfos.appendChild(contagemDiasLetivos);
+        //-------------------------------------------->
 
         divPrin.appendChild(divMes);
         divPrin.appendChild(divInfos);
@@ -88,8 +100,7 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
         mesCalend.className = "table";
         divMes.appendChild(mesCalend);
 
-        let mesEventosLista = document.createElement('ul');
-        divInfos.appendChild(mesEventosLista);
+        
 
 
 
@@ -103,13 +114,20 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
             let thNomeSemana = document.createElement('th');
             thNomeSemana.style.padding = "5px"
             thNomeSemana.textContent = diasSemana[j];
+            if(j == 0){
+                thNomeSemana.style.color = "red";
+            }
             trNomeSemana.append(thNomeSemana);
         }
         mesCalend.appendChild(trNomeSemana);
 
+        let diasDeAulaPmes = 0;
+        
         for(let i = 0; i < mesMatriz.length; i++){
             let semana = mesMatriz[i];
             let semanaCalend = document.createElement('tr');
+
+
             
             for(let j = 0; j < semana.length; j++){
                 let dia = semana[j];
@@ -122,6 +140,25 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
 
                 }else{
 
+                    //fiscal de feriado ---->
+                    let ehFeriado = false;
+
+                    if(j == 6){
+
+                        //fiscal de feriado ---->
+                        ehFeriado = true;                        
+                    }else if(j == 0){
+                        //pintando domingos e contando dias letivos
+                        diaCalend.style.backgroundColor = '#D9D9D9';
+                        diaCalend.style.color = "red";
+
+                        //fiscal de feriado ---->
+                        ehFeriado = true;
+                    }
+
+                    
+                    
+
                     //Feriados
                     let feriadosObj = calend.criaFeriadosObj(feriados.split('\n'));
                     for(let f of feriadosObj){
@@ -131,10 +168,13 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
                         
                         if(mes == mesFeriado - 1 && diaFeriado == dia){
                             mesEventosLista.appendChild(eventosLista(f.data.slice(0, 5), f.nome));
-                            diaCalend.style.backgroundColor = '#89D5C9';
+                            diaCalend.style.backgroundColor = '#FF0000';
+
+                            //fiscal de feriado ---->
+                            ehFeriado = true;
                         }
                     }
-                    //Eevntos
+                    //Eventos
                     let eventosObj = calend.criaFeriadosObj(eventos.split("\n"));
                     for(let e of eventosObj){
                         let mesEvento = e.data.slice(3, 5);
@@ -144,6 +184,21 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
                         if(mes == mesEvento - 1 && diaEvento == dia){
                             mesEventosLista.appendChild(eventosLista(e.data.slice(0, 5), e.nome));
                             diaCalend.style.backgroundColor = '#FF8357';
+
+                            //fiscal de feriado ---->
+                            ehFeriado = true;
+
+                            switch(e.nome){
+                                case "Sabado Letivo":
+                                    diaCalend.style.backgroundColor = '#FAC08F';
+
+                                    //fiscal de feriado ---->
+                                    ehFeriado = false;
+                                    break
+                                case "Ponto Facultativo":
+                                    diaCalend.style.backgroundColor = '#FF00FF';
+                                    break
+                            }
                         }
                     }
 
@@ -163,17 +218,87 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
                     if(qntFerias){
                         if(contFerias < qntFerias){
                             contFerias++;
-                            diaCalend.style.backgroundColor = '#ADC865';
+                            diaCalend.style.backgroundColor = '#FFFF00';
+
+                            ehFeriado = true;
                         }else if(contFerias == qntFerias){
                             mesEventosLista.appendChild(eventosLista((dia-1)+"/0"+(mes+1), "fim das ferias"));
                             qntFerias = undefined;
                         }
                     }
+
+
+
+                    //contando dias letivos
+                    console.log(ehFeriado);
+                    
+                    if (!ehFeriado) {
+                        if (calendPeriodo.mesComeca == calendPeriodo.mesTermina) {
+                            if (dia >= calendPeriodo.diaComeca && dia <= calendPeriodo.diaTermina) {
+                                diasDeAulaPmes += 1;
+                            }
+                        }else{
+                            if(dia >= calendPeriodo.diaComeca && mes == calendPeriodo.mesComeca -1){
+                                diasDeAulaPmes += 1;
+                            }else if(mes > calendPeriodo.mesComeca -1 && mes != calendPeriodo.mesTermina -1){
+                                diasDeAulaPmes += 1;
+                            }else if(dia <= calendPeriodo.diaTermina && mes == calendPeriodo.mesTermina -1){
+                                diasDeAulaPmes += 1;
+                            }
+                        }   
+                    }
+
+
+
+                    //Começo e fim de bimestres ___________
+
+                    if (dia == calendPeriodo.diaComeca && mes == calendPeriodo.mesComeca -1) {   
+                        diaCalend.style.backgroundColor = '#B2A1C7';                     
+                        mesEventosLista.appendChild(eventosLista(dia, "Início do Ano Letivo 2020.1 – 1° Bimestre"));
+                    }else if(diasDeAula + diasDeAulaPmes == contagemBimestre){
+                        let bimestres = ["Fim do 1º Bimestre (50 dias letivos)", "Término do 2º bimestre (100 dias letivos)",
+                                         "Término do 3º bimestre (150 dias letivos)", "Final do 4º Bimestre (200 dias letivos)"];
+                        let i = 0;
+                        switch(contagemBimestre){
+                            case 100:
+                                i = 1;
+                                break
+                            case 150:
+                                i = 2;
+                                break
+                            case 200:
+                                i = 3;
+                                break
+                        }
+
+                        if(!(dia > calendPeriodo.diaTermina && mes == calendPeriodo.mesTermina -1)){
+                            if(!(j == 0 || j == 6)){
+                                diaCalend.style.backgroundColor = '#00B050';  
+                                mesEventosLista.appendChild(eventosLista(dia, bimestres[i]));
+                            }
+                        }
+                    }else if(diasDeAula + diasDeAulaPmes == contagemBimestre + 1){
+                        let bimestres = ["Início do 2° Bimestre", "Início do 3º bimestre", "Início do 4° Bimestre"];
+                        let i = 0;
+                        switch(contagemBimestre){
+                            case 100:
+                                i = 1;
+                                break
+                            case 150:
+                                i = 2;
+                                break
+                        }
+
+                        
+                        diaCalend.style.backgroundColor = '#B2A1C7'; 
+                        mesEventosLista.appendChild(eventosLista(dia, bimestres[i]));
+                        contagemBimestre += 50
+                    }
+
                     
 
-
-
                     diaCalend.textContent = dia;
+
                 }
 
                 semanaCalend.appendChild(diaCalend);  
@@ -181,6 +306,12 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
 
             mesCalend.appendChild(semanaCalend); 
         }
+
+        //contagem de dias de aula ---------------------------------------------------------------->
+        diasDeAula += diasDeAulaPmes;
+        contagemDiasLetivos.textContent = 'dias letivos: ' + diasDeAulaPmes + ' (' + diasDeAula + ')';
+
+        //----------------------------------------------------------------------------------------->
 
         if(mes == 11){
             ano++;
@@ -198,7 +329,7 @@ function criaCalendario(calendPeriodo, feriados, ferias, eventos){
 function eventosLista(data, nome) {
     let diaEspecialLi = document.createElement('li');
     
-    diaEspecialLi.textContent = data + " " + nome;;
+    diaEspecialLi.textContent = data + " - " + nome;;
 
     return diaEspecialLi;
 

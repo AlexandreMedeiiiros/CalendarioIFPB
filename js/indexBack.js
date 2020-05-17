@@ -57,7 +57,7 @@ export function criaFeriadosObj(feriados){
 
 
 export function criaFeriasObj(ferias) {
-    let separador = "-";
+    let separador = ":";
     let feriasObj = [];
     for(let i of ferias){
         let feriasLista = i.split(separador);
@@ -85,88 +85,9 @@ export function criaFeriasObj(ferias) {
 // 06/07/2020:São joao federal
 // 07/07/2020:São joao federal
 
-// function criaCalendario(ano=new Date().getFullYear(), periodoDeAulas) {
-//     var calendario = document.createElement('table');
-//     var meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-//                  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-//     calendario.style="width:100%";
-
-//     for (let mes = 0; mes < 12; mes++){
-//         if (mes == 0 || mes%3 == 0){
-//             var trCalendario = document.createElement("tr");
-//             var trNomeMes = document.createElement("tr");
-//         }
-//         let tdCalendario = document.createElement("td");
-//         let tdNomeMes = document.createElement("td");
-//         tdNomeMes.textContent=meses[mes];
-//         trNomeMes.appendChild(tdNomeMes);
-
-//         //Cria Mes do calendario
-//         let calendarioMes = document.createElement("table");
-//         calendarioMes.border = "2";
-//         let cabecalho = document.createElement('tr');
-
-//         let diasSemana = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"];
-//         for(let j = 0;j < diasSemana.length; j++){
-//             let tdDiaSemana = document.createElement("td");
-//             tdDiaSemana.textContent = diasSemana[j]
-//             cabecalho.appendChild(tdDiaSemana);
-//         }
-//         calendarioMes.appendChild(cabecalho);
-
-//         for(let u = 1; u <= 31; u++){
-//             let dia = new Date(ano, mes, u);
-//             if (dia.getDate() != u){
-//                 break;
-//             }
-//             if (dia.getDay() == 0 && dia.getDate() == 1){
-//                 var tr2 = document.createElement('tr');
-//                 var td = document.createElement("td");
-//                 td.textContent = dia.getDate();
-//                 tr2.appendChild(td);
-//             }else if (dia.getDay() != 0 && dia.getDate() == 1){
-//                 var tr2 = document.createElement('tr');
-//                 for(let i = 1; i <= dia.getDay(); i++){
-//                     let td = document.createElement("td");
-//                     td.textContent = " ";
-//                     tr2.appendChild(td);
-//                 }
-//                 var td = document.createElement("td");
-//                 td.textContent = dia.getDate();
-//                 tr2.appendChild(td);
-//             }else if (dia.getDay() == 0){
-//                 var tr2 = document.createElement('tr');
-//                 var td = document.createElement("td");
-//                 td.textContent = dia.getDate();
-//                 tr2.appendChild(td);
-//             }else{
-//                 var td = document.createElement("td");
-//                 td.textContent = dia.getDate();
-//                 tr2.appendChild(td);
-//             }
-//             //definindo a cor do dia dependendo se tem aula ou nao
-//             if (mes >= periodoDeAulas.mesComeca - 1 && mes <= periodoDeAulas.mesTermina - 1){
-//                 if ((mes == periodoDeAulas.mesComeca - 1 && u < periodoDeAulas.diaComeca) || (mes == periodoDeAulas.mesTermina - 1 && u > periodoDeAulas.diaTermina)){
-//                     td.style.backgroundColor = 'green';
-//                 }else{
-//                     td.style.backgroundColor = 'blue';
-//                 }
-                
-//             }else{
-//                 td.style.backgroundColor = 'green';
-//             }
-//             calendarioMes.appendChild(tr2);  
-//         }
-//         //terminou
-        
-//         tdCalendario.appendChild(calendarioMes);
-//         trCalendario.appendChild(tdCalendario)
-        
-//         calendario.appendChild(trNomeMes);
-//         calendario.appendChild(trCalendario);
-//     }
-
-
-
-//     return calendario;
-// }
+// tem mais modificações:
+// - as cores pintadas no calendário ficam iguais ao do calendário oficial mesmo - not
+// - separador das férias é ":" e não "-", para manter o padrão - yes
+// - domingo e sábado ficam de outra cor - yes
+// - colocar a contagem de dias letivos - yes
+// - o início e fim do bimestre é automático: cada bimestre tem 50 dias, excluídos fins de semana e feriados - not
