@@ -73,20 +73,35 @@ export function criaFeriasObj(ferias) {
 }
 
 
-// 10/04/2020:Paixão de cristo
-// 12/04/2020:Pascoa
-// 21/04/2020:Dia de Tiradentes
-// 01/05/2020:Dia do Trabalho
-// 10/05/2020:Dia das maes
-// 09/07/2020:Dia dos pais
+// 25/02:Carnaval
+// 09/03:Emancipação Política de Picuí-PB
+// 10/04:Sexta-Feira Santa
+// 21/04:Tiradentes
+// 01/05:Dia do Trabalhador
+// 11/06:Dia de Corpus christi
+// 24/06:Dia de São João
+// 29/06:Dias de São Pedro
+// 05/08:Fundação da Paraiba
+// 07/09:Independencia do Brasil
+// 12/10:Padroeira do Brasil
+// 02/11:Finados
+// 15/11:Proclamação da Repuplica
+// 25/12:Natal
 
-// 15/06/2020-15
+// 11/07:21
 
-// 06/07/2020:São joao federal
-// 07/07/2020:São joao federal
+// 15/02/2020:Sabado Letivo
+// 24/02/2020:Ponto Facultativo
+// 26/02/2020:Ponto Facultativo
+// 21/03/2020:Sabado Letivo
+// 25/04/2020:Sabado Letivo
+// 16/05/2020:Sabado Letivo
+// 20/06/2020:Sabado Letivo
+// 29/08/2020:Sabado Letivo
+// 28/10/2020:Ponto Facultativo
 
 // tem mais modificações:
-// - as cores pintadas no calendário ficam iguais ao do calendário oficial mesmo - not
+// - as cores pintadas no calendário ficam iguais ao do calendário oficial mesmo - yes
 // - separador das férias é ":" e não "-", para manter o padrão - yes
 // - domingo e sábado ficam de outra cor - yes
 // - colocar a contagem de dias letivos - yes
